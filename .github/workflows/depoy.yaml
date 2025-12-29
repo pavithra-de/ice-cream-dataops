@@ -53,7 +53,12 @@ jobs:
 
     steps:
       - name: Print working directory with pwd
-        run: pwd
+        run: |
+          echo "PWD:"
+          pwd
+          echo ""
+          echo "LS:"
+          ls -la
       - uses: actions/checkout@v4
       - name: Verify and Update Toolkit Authorization
         run: yes | cdf auth verify
