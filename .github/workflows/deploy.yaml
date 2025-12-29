@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cognite/toolkit:0.6.53  # Make sure the toolkit version matches the version in cdf.toml
-    defaults:
-      run:
-        working-directory: ./ice-cream-dataops
     strategy:
       matrix:
         include:
@@ -53,19 +50,15 @@ jobs:
       ICAPI_EXTRACTORS_SOURCE_ID: ${{ vars.ICAPI_EXTRACTORS_SOURCE_ID }}
 
     steps:
-      - name: Print working directory with pwd
-        run: |
-          echo "PWD:"
-          pwd
-          echo ""
-          echo "LS:"
-          ls -la
       - uses: actions/checkout@v4
       - name: Verify and Update Toolkit Authorization
+        working-directory: ./ice-cream-dataops
         run: yes | cdf auth verify
       - name: Print working directory with pwd
         run: pwd
       - name: Build Toolkit Configurations
+        working-directory: ./ice-cream-dataops
         run: cdf build --env=${{ matrix.environment }}
       - name: Deploy Toolkit Configurations
+        working-directory: ./ice-cream-dataops
         run: cdf deploy --env=${{ matrix.environment }}
