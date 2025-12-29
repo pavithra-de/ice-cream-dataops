@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - ice-cream-dataops/**  # Make sure this matches default_organization_dir in cdf.toml
   workflow_dispatch:
     inputs:
       environment:
@@ -21,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cognite/toolkit:0.6.53  # Make sure the toolkit version matches the version in cdf.toml
+    defaults:
+      run:
+        working-directory: ./ice-cream-dataops
     strategy:
       matrix:
         include:
@@ -65,7 +66,6 @@ jobs:
       - name: Print working directory with pwd
         run: pwd
       - name: Build Toolkit Configurations
-        working-directory: ./ice-cream-dataops
         run: cdf build --env=${{ matrix.environment }}
       - name: Deploy Toolkit Configurations
         run: cdf deploy --env=${{ matrix.environment }}
