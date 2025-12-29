@@ -61,7 +61,9 @@ jobs:
           ls -la
       - uses: actions/checkout@v4
       - name: Verify and Update Toolkit Authorization
-        run: yes | cdf auth verify
+        run: |
+          cd ice-cream-dataops
+          yes | cdf auth verify
       - name: Print working directory with pwd
         run: pwd
       - name: Build Toolkit Configurations
