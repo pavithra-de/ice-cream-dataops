@@ -52,6 +52,8 @@ jobs:
       ICAPI_EXTRACTORS_SOURCE_ID: ${{ vars.ICAPI_EXTRACTORS_SOURCE_ID }}
 
     steps:
+      - name: Print working directory with pwd
+        run: pwd
       - uses: actions/checkout@v4
       - name: Verify and Update Toolkit Authorization
         run: yes | cdf auth verify
