@@ -65,8 +65,7 @@ jobs:
       - name: Print working directory with pwd
         run: pwd
       - name: Build Toolkit Configurations
-        run: |
-          cd ice-cream-dataops
-          cdf build --env=${{ matrix.environment }}
+        working-directory: ./ice-cream-dataops
+        run: cdf build --env=${{ matrix.environment }}
       - name: Deploy Toolkit Configurations
         run: cdf deploy --env=${{ matrix.environment }}
